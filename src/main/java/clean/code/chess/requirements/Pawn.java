@@ -97,7 +97,7 @@ public class Pawn {
                 return false;
             }
         }
-        return false;
+        return true;
     }
 
     @Override

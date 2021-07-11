@@ -59,15 +59,15 @@ public class Pawn {
             return false;
         if (pieceColor.equals(PieceColor.WHITE)) {
             if (movementType.equals(MovementType.MOVE)) {
-                if (yCoordinate == 1) {
+                /*if (yCoordinate == 1) {
                     if (y == yCoordinate + 2 && x == xCoordinate) {
                         return true;
                     }
-                }
+                }*/
                 if (x != xCoordinate || y != yCoordinate + 1) {
                     return false;
                 }
-                return true;
+//                return true;
             }
             if (movementType.equals(MovementType.CAPTURE)) {
                 if (x == xCoordinate + 1 && y == yCoordinate + 1)
@@ -79,15 +79,15 @@ public class Pawn {
         }
         if (pieceColor.equals(PieceColor.BLACK)) {
             if (movementType.equals(MovementType.MOVE)) {
-                if (yCoordinate == 6) {
+                /*if (yCoordinate == 6) {
                     if (y == yCoordinate - 2 && x == xCoordinate) {
                         return true;
                     }
-                }
+                }*/
                 if (x != xCoordinate || y != yCoordinate - 1) {
                     return false;
                 }
-                return true;
+//                return true;
             }
             if (movementType.equals(MovementType.CAPTURE)) {
                 if (x == xCoordinate + 1 && y == yCoordinate - 1)

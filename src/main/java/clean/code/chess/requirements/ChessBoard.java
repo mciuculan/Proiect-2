@@ -4,12 +4,14 @@ import java.util.HashMap;
 
 public class ChessBoard {
 
-    public static int MAX_BOARD_WIDTH = 8;
-    public static int MAX_BOARD_HEIGHT = 8;
-    public static int MAX_NUMBER_OF_PAWNS = 16;
+    public static int MAX_BOARD_WIDTH = 7;
+    public static int MAX_BOARD_HEIGHT = 7;
+    public static int MAX_NUMBER_OF_BLACK_PAWNS = 7;
+    public static int MAX_NUMBER_OF_WHITE_PAWNS = 7;
 
     private Piece[][] spots;
-    private HashMap<Pawn, Position> pawns = new HashMap<>();
+    private HashMap<Pawn, Position> b_pawns = new HashMap<>();
+    private HashMap<Pawn, Position> w_pawns = new HashMap<>();
 
     public ChessBoard() {
         spots = new Piece[MAX_BOARD_WIDTH][MAX_BOARD_HEIGHT];
@@ -25,21 +27,38 @@ public class ChessBoard {
     }
 
     public void Add(Pawn pawn, int xCoordinate, int yCoordinate, PieceColor pieceColor) {
-        if (pawns.size() < MAX_NUMBER_OF_PAWNS) {
-            if (IsLegalBoardPosition(xCoordinate, yCoordinate)) {
-                if ((pieceColor.equals(PieceColor.BLACK) && xCoordinate >= 6)
-                        || pieceColor.equals(PieceColor.WHITE) && xCoordinate <= 1) {
+        if (pieceColor.equals(PieceColor.BLACK)) {
+            if (b_pawns.size() < MAX_NUMBER_OF_BLACK_PAWNS) {
+                if (IsLegalBoardPosition(xCoordinate, yCoordinate)) {
                     spots[xCoordinate][yCoordinate] = Piece.PAWN;
+                    pawn.setChessBoard(this);
                     pawn.setXCoordinate(xCoordinate);
                     pawn.setYCoordinate(yCoordinate);
-                    pawns.put(pawn, new Position(xCoordinate, yCoordinate));
+                    b_pawns.put(pawn, new Position(xCoordinate, yCoordinate));
+                }
+            }
+        } else if (pieceColor.equals(PieceColor.WHITE)) {
+            if (w_pawns.size() < MAX_NUMBER_OF_WHITE_PAWNS) {
+                if (IsLegalBoardPosition(xCoordinate, yCoordinate)) {
+                    spots[xCoordinate][yCoordinate] = Piece.PAWN;
+                    pawn.setChessBoard(this);
+                    pawn.setXCoordinate(xCoordinate);
+                    pawn.setYCoordinate(yCoordinate);
+                    w_pawns.put(pawn, new Position(xCoordinate, yCoordinate));
                 }
             }
         }
     }
 
     public boolean IsLegalBoardPosition(int xCoordinate, int yCoordinate) {
-        return xCoordinate <= 7 && xCoordinate >= 0 && yCoordinate <= 7
-                && yCoordinate >= 0 && spots[xCoordinate][yCoordinate] == Piece.EMPTY;
+        if (xCoordinate >= 7)
+            return false;
+        if (xCoordinate < 0)
+            return false;
+        if (yCoordinate >= 7)
+            return false;
+        if (yCoordinate < 0)
+            return false;
+        return spots[xCoordinate][yCoordinate] == Piece.EMPTY;
     }
 }
